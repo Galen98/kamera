@@ -55,6 +55,15 @@
     padding: 50px; 
     border-radius: 8px;
   }
+  .hero-background-4 {
+    background-image: url('https://framerusercontent.com/images/FbbSANQv5Y0WkCwiKbNcBq5p38k.png?scale-down-to=1024');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: white; 
+    padding: 50px; 
+    border-radius: 8px;
+  }
   .loading-overlay {
     position: fixed;
     top: 0;
@@ -135,3 +144,11 @@
     border-radius: 3px;
     font-size: 14px;
   }
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}

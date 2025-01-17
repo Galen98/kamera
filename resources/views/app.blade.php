@@ -32,7 +32,7 @@
               <ul class="nav">
               <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
                 <li class="{{ request()->is('master-item') ? 'active' : '' }}"><a href="{{ route('index.item') }}">Master Item</a></li>
-                <li><a href="#about">Transaction</a></li>
+                <li class="{{ request()->is('transaction') ? 'active' : '' }}"><a href="{{ route('index.transaction') }}">Transaction</a></li>
                 <li><a href="#contact">Report</a></li>
                 <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>
  Logout</a></li>

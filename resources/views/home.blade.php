@@ -7,23 +7,23 @@
 <div class="hero-unit hero-background-3">
     <h1>Home</h1>
   </div>
-  <div class="alert alert-block">
+<!-- <div class="alert alert-block">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <h4><i class="fa-solid fa-bell"></i> Notification</h4>
   <ul>
     <li>s</li>
   </ul>
-</div>
+</div> -->
 
 <h3>Customer Hari Ini</h3>
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
     <thead>
       <tr style="background-color:#151b23;color:white;">
         <th>No.Order</th>
         <th>Nama</th>
-        <th>Alamat</th>
         <th>Total</th>
         <th>Status Pembayaran</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -31,8 +31,8 @@
       <td>John</td>
         <td>John</td>
         <td>Doe</td>
-        <td>john@example.com</td>
-        <td>john@example.com</td>
+        <td><span class="label label-important">Belum Lunas</span></td>
+        <td><button class="btn btn-sm">Details &raquo;</button></td>
       </tr>
     </tbody>
   </table>

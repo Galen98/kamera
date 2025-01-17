@@ -12,7 +12,19 @@ class Item extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'kode_item, stok, available ,nama_item, spesifikasi, category_id, harga_per_hari, harga_per_jam	
-        ',
+        'kode_item',
+        'stok',
+        'merk',
+        'seri', 
+        'nama_item',
+        'spesifikasi', 
+        'category_id',
+        'harga_per_hari',
+        'harga_per_jam'
     ];
+
+    public function availability()
+    {
+        return $this->hasOne(Availability::class, 'item_masters_id', 'id');
+    }
 }

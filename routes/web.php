@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,12 @@ Route::get('password', [UserController::class, 'password'])->name('password');
 Route::post('password', [UserController::class, 'password_action'])->name('password.action');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
+    //master-item
     Route::get('master-item', [ItemController::class, 'index'])->name('index.item');
     Route::get('master-item/add', [ItemController::class, 'add'])->name('add.item');
+    Route::get('master-item/view/{id}', [ItemController::class, 'getItemById'])->name('view.item');
+    Route::post('/store-master-item', [ItemController::class, 'storeItem'])->name('store.item');
+    //transaction
+    Route::get('transaction', [TransactionController::class, 'index'])->name('index.transaction');
+    Route::get('transaction/add', [TransactionController::class, 'add'])->name('add.transaction');
 });

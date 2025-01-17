@@ -22,5 +22,7 @@ Route::get('/categories', [ItemController::class, 'getCategory']);
 Route::post('/categories', [ItemController::class, 'storeCategory']);
 
 //item
-Route::get('/all-master-item', [ItemController::class, 'getMasterItem']);
+
+Route::get('/all-master-items', [ItemController::class, 'getMasterItem']);
+Route::get('/all-master-items/categories={id_cat}', [ItemController::class, 'getItemByCategory']);
 

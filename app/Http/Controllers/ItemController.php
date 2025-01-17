@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ItemRepositoryInterface;
+use Illuminate\Support\Facades\Validator;
 
 class ItemController extends Controller
 {
@@ -47,17 +48,41 @@ class ItemController extends Controller
     //master item
     public function getMasterItem() {
         $item = $this->itemRepository->getAllItem();
+        
         return response()->json([
             'item' => $item
         ], 200);
     }
 
     public function getItemByCategory($id_cat) {
+       $item = $this->itemRepository->getByCat($id_cat);
 
+       return response()->json([
+        'item' => $item
+        ], 200);
     }
 
-    public function storeItem() {
+    public function storeItem(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'nama_item' => 'required',
+            'seri' => 'required',
+            'merk' => 'required',
+            'harga_per_hari' => 'required|numeric',
+            'category_id' => 'required',
+            'stok' => 'required',
+            'harga_per_jam' => 'numeric'
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $this->itemRepository->createItem($request->all());
+
+        return redirect()->route('index.item')
+            ->with('success', 'Item created successfully.');
     }
 
     public function updateItem() {
@@ -66,5 +91,15 @@ class ItemController extends Controller
 
     public function destroyItem() {
 
+    }
+
+    public function getItemById($id) {
+        $item = $this->itemRepository->getById($id);
+        if($item) {
+        $data['title'] = $item->nama_item;
+        return view('master-item/view-master-item', $data);
+        } else {
+            abort(404);
+        }
     }
 }

@@ -30,7 +30,7 @@
 <div class="container mt-1">
 @if(session('success'))
         <p class="alert alert-success">{{ session('success') }}</p>
-        @endif
+@endif
         @if($errors->any())
         @foreach($errors->all() as $err)
         <p class="alert alert-error">{{ $err }}</p>
