@@ -34,6 +34,7 @@
                 <li class="{{ request()->is('master-item') ? 'active' : '' }}"><a href="{{ route('index.item') }}">Master Item</a></li>
                 <li class="{{ request()->is('transaction') ? 'active' : '' }}"><a href="{{ route('index.transaction') }}">Transaction</a></li>
                 <li><a href="#contact">Report</a></li>
+                <li class="{{ request()->is('setting') ? 'active' : '' }}"><a href="{{ route('index.setting') }}"><i class="fa-solid fa-gear"></i> Setting</a></li>
                 <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>
  Logout</a></li>
               </ul>

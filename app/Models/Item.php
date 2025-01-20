@@ -19,8 +19,7 @@ class Item extends Model
         'nama_item',
         'spesifikasi', 
         'category_id',
-        'harga_per_hari',
-        'harga_per_jam'
+        'harga_per_hari'
     ];
 
     public function availability()

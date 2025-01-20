@@ -13,17 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('item_masters', function (Blueprint $table) {
+        Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('email');
             $table->timestamps();
-            $table->string('kode_item');
-            $table->string('merk');
-            $table->string('seri');
-            $table->integer('stok');
-            $table->string('nama_item');
-            $table->string('spesifikasi');
-            $table->integer('category_id');
-            $table->integer('harga_per_hari');
         });
     }
 
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_masters');
+        Schema::dropIfExists('user_profiles');
     }
 };

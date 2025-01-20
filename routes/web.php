@@ -38,4 +38,6 @@ Route::middleware('auth')->group(function () {
     //transaction
     Route::get('transaction', [TransactionController::class, 'index'])->name('index.transaction');
     Route::get('transaction/add', [TransactionController::class, 'add'])->name('add.transaction');
+    //setting
+    Route::get('setting', [UserController::class, 'setting_view'])->name('index.setting');
 });

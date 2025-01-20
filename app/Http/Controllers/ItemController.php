@@ -69,8 +69,7 @@ class ItemController extends Controller
             'merk' => 'required',
             'harga_per_hari' => 'required|numeric',
             'category_id' => 'required',
-            'stok' => 'required',
-            'harga_per_jam' => 'numeric'
+            'stok' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -101,5 +100,10 @@ class ItemController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    //api check urutan item
+    public function countItem($cat){
+        
     }
 }

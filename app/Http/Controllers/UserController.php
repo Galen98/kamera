@@ -84,4 +84,9 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+    public function setting_view() {
+        $data['title'] = 'Setting';
+        return view('options-view/index', $data);
+    }
 }

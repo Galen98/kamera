@@ -50,11 +50,7 @@
           <span class="add-on">Rp.</span>
           <input class="span2" id="appendedPrependedInput" type="text" name="harga_per_hari">
         </div>
-        <label class="control-label" for="inputEmail">Harga Sewa Per Jam</label>
-        <div class="input-prepend input-append input-block-level">
-          <span class="add-on">Rp.</span>
-          <input class="span2" id="appendedPrependedInput" type="text" name="harga_per_jam">
-        </div>
+
         <label class="control-label" for="inputEmail">Category <span style="color: red;">*</span></label>
         <button type="button" class="btn btn-sm" id="openModal"><i class="fa-solid fa-plus"></i> add category</button><br/><br/>
 
