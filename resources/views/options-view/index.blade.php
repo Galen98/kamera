@@ -1,14 +1,20 @@
 @extends('../app')
 @section('content')
 <div class="container mt-1">
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
 <ul class="breadcrumb">
 <li><a href="/">Home</a> <span class="divider">/</span></li>
 <li class="active">Setting</li>
 </ul>
+<div class="data-sukses">
 
+</div>
 <div>
     <h4>Email</h4>
-    <input type="text" class="input-block-level email-input" readonly placeholder="Email" name="email" id="email">
+    <input type="email" value="{{ $data ?? '' }}" class="input-block-level email-input email" readonly placeholder="Email" name="email" id="email">
+
     <span style="color: red;">*Untuk keperluan notifikasi via email.</span>
     <br>
     <div class="btn-on-edit">

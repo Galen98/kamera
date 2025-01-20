@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Profiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -87,6 +88,34 @@ class UserController extends Controller
 
     public function setting_view() {
         $data['title'] = 'Setting';
+        $profile = Profiles::first(); 
+        $data['data'] = $profile ? $profile->email : '';
         return view('options-view/index', $data);
+    }
+
+    public function setting_save_email(Request $request) {
+        $datas = Profiles::all();
+        if($datas->isEmpty()) {
+        $data = [
+            'email' => $request->email,
+        ];
+        
+        $profile = Profiles::create($data);
+        if ($profile) {
+            return response()->json(['message' => 'Email saved successfully'], 201);
+        } else {
+            return response()->json(['message' => 'Failed to save email'], 500);
+        }
+    } else {
+       $profile = Profiles::first();
+       $profiles = $profile->update([
+            'email' => $request->email
+        ]);
+        if ($profile) {
+            return response()->json(['message' => 'Email saved successfully'], 201);
+        } else {
+            return response()->json(['message' => 'Failed to save email'], 500);
+        }
+    }
     }
 }

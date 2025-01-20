@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,12 +18,16 @@ use App\Http\Controllers\ItemController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 //category
 Route::get('/categories', [ItemController::class, 'getCategory']);
 Route::post('/categories', [ItemController::class, 'storeCategory']);
 
 //item
-
 Route::get('/all-master-items', [ItemController::class, 'getMasterItem']);
 Route::get('/all-master-items/categories={id_cat}', [ItemController::class, 'getItemByCategory']);
+
+//setting
+Route::post('/save-email', [UserController::class, 'setting_save_email']);
+
 
