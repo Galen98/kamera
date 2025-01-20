@@ -26,4 +26,20 @@ class Item extends Model
     {
         return $this->hasOne(Availability::class, 'item_masters_id', 'id');
     }
+
+    public static function generateCode($prefix) {
+        $lastCode = self::where('kode_item', 'LIKE', $prefix . '/%')
+                        ->orderBy('kode_item', 'desc')
+                        ->first();
+
+        if (!$lastCode) {
+            return '/0001';
+        }
+    
+        $lastNumber = (int) substr($lastCode->code, strlen($prefix) + 1); 
+        $newNumber = $lastNumber + 1;
+
+        return str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
+    
 }

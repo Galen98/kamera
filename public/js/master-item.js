@@ -61,6 +61,7 @@ function getCode(){
   let resultNama = ''
   let resultSeri = ''
   let resultMerk = ''
+  let lastNumber = ''
   $('#categoryList').change(function() {
       var selectedOption = $(this).find('option:selected');
       var categoryName = selectedOption.text();
@@ -68,10 +69,21 @@ function getCode(){
       
       if(shortName == 'SIL'){
         lastshortName = ''
+        lastNumber = ''
       } else{
-        lastshortName = shortName
+        $.ajax({
+            url: '/api/get-code/'+shortName,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                lastNumber = response.code
+                lastshortName = shortName
+                updateKode()
+            }
+        })
+        
       }
-      updateKode()
+     
   });
 
   $('#nama').on('keyup', function() {
@@ -95,7 +107,7 @@ function getCode(){
     updateKode()
   });
   function updateKode() {
-    $('#kode').val(lastshortName + '/' + resultMerk + '/' + resultNama + '/' + resultSeri);
+    $('#kode').val(lastshortName + '/' + resultMerk + '/' + resultNama + '/' + resultSeri  + lastNumber);
   }
 }
 

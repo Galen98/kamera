@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ItemRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
@@ -62,6 +63,12 @@ class ItemController extends Controller
         ], 200);
     }
 
+    public function get_code($prefix) {
+        $newCode = Item::generateCode($prefix);
+    
+        return response()->json(['message' => 'Item created successfully', 'code' => $newCode]);
+    }
+    
     public function storeItem(Request $request) {
         $validator = Validator::make($request->all(), [
             'nama_item' => 'required',
@@ -104,6 +111,6 @@ class ItemController extends Controller
 
     //api check urutan item
     public function countItem($cat){
-        
+
     }
 }

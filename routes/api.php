@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //category
 Route::get('/categories', [ItemController::class, 'getCategory']);
+Route::get('/get-code/{prefix}', [ItemController::class, 'get_code']);
 Route::post('/categories', [ItemController::class, 'storeCategory']);
 
 //item
