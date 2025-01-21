@@ -75,7 +75,7 @@
           <button class="btn" id="closeModal">Close</button>
         </div>
       </div>
-    </div>
+</div>
   </div>
 </div>
 @endsection

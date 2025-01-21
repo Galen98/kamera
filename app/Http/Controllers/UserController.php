@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Profiles;
+use App\Models\Invoices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -108,7 +110,7 @@ class UserController extends Controller
         }
     } else {
        $profile = Profiles::first();
-       $profiles = $profile->update([
+       $profile->update([
             'email' => $request->email
         ]);
         if ($profile) {
@@ -117,5 +119,51 @@ class UserController extends Controller
             return response()->json(['message' => 'Failed to save email'], 500);
         }
     }
+    }
+
+    //invoice
+    public function get_all_invoices() {
+        $invoice = Invoices::all();
+        return response()->json([
+            'item' => $invoice
+        ], 200);
+    }
+
+    public function post_invoices(Request $request, Invoices $inv){
+        $inv->store_name = $request->store_name;
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('img/invoices', $name);
+            $inv->invoice_pict = $name;
+        }
+        
+        $data = $inv->save();
+        if ($data) {
+            return response()->json(['message' => 'saved successfully'], 201);
+        } else {
+            return response()->json(['message' => 'Failed to save'], 500);
+        }
+    }
+
+    public function get_byid_invoices($id) {
+        $data = Invoices::find($id);
+        if ($data) {
+            return response()->json([
+                'item' => $data,
+                'message' => 'saved successfully'], 200);
+        }
+    }
+
+    public function update_invoices(Request $request) {
+
+    }
+
+    public function destroy_invoices($id) {
+        $invoice = Invoices::find($id);
+        if ($invoice->invoice_pict && file_exists(public_path('img/invoices/' . $invoice->invoice_pict)))
+            unlink(public_path('img/invoices/' . $invoice->invoice_pict));
+        $invoice->delete();
+        return response()->json(['message' => 'Invoice deleted successfully'], 200);
     }
 }

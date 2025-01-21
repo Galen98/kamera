@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invoice_data', function (Blueprint $table) {
             $table->id();
             $table->string('store_name');
-            $table->string('invoice_pict');
+            $table->string('invoice_pict')->nullable();
             $table->timestamps();
         });
     }

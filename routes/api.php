@@ -30,5 +30,9 @@ Route::get('/all-master-items/categories={id_cat}', [ItemController::class, 'get
 
 //setting
 Route::post('/save-email', [UserController::class, 'setting_save_email']);
+Route::get('/get-invoices', [UserController::class, 'get_all_invoices']);
+Route::get('/invoices/{id}', [UserController::class, 'get_byid_invoices']);
+Route::post('/save-invoices', [UserController::class, 'post_invoices']);
+Route::delete('/destroy-invoices/{id}', [UserController::class, 'destroy_invoices']);
 
 
