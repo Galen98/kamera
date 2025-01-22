@@ -79,6 +79,7 @@ $(document).ready(function(){
             success: function(response) {
                 $('#loadingOverlay').hide()
                 $('.email-input').attr('readonly', true)
+                $('.data-sukses').empty()
                 $('.data-sukses').append('<div class="alert alert-block alert-success data-sukses" style="margin-top: 10px;">'+
                 '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
                 '<p><i class="fa-solid fa-check"></i> Data berhasil diinput</p>'+
@@ -100,19 +101,6 @@ $(document).ready(function(){
         }
     });
 
-    $('input[name="logo"]').on('change', function(){
-        var file = $('#fileInput').prop('files')[0];
-        if (file) {
-            var fileSize = file.size;
-            var maxSize = 500 * 1024;
-            if (fileSize > maxSize) {
-                alert("Ukuran file tidak boleh lebih dari 500KB!");
-                $('#fileInput').val('');
-            } else {
-                console.log("File yang dipilih:", file);
-            }
-        }
-    });
 
     $('#store-invoice').click(function(){
         var store_name = $('#store').val()
@@ -140,6 +128,7 @@ $(document).ready(function(){
                 $('#fileInput').val('')
                 $('#store').val('')
                 getInvoices()
+                $('.data-sukses').empty()
                 $('.data-sukses').append('<div class="alert alert-block alert-success data-sukses" style="margin-top: 10px;">'+
                 '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
                 '<p><i class="fa-solid fa-check"></i> '+ response.message +'</p>'+
@@ -150,13 +139,91 @@ $(document).ready(function(){
     }
     })
 
+    $('input[name="logo"]').on('change', function(){
+        var file = $('#fileInput').prop('files')[0];
+        if (file) {
+            var fileSize = file.size;
+            var maxSize = 500 * 1024;
+            if (fileSize > maxSize) {
+                alert("Ukuran file tidak boleh lebih dari 500KB!");
+                $('#fileInput').val('');
+            } else {
+                console.log("File yang dipilih:", file);
+            }
+        }
+    });
+
+    $('input[name="logo-edit"]').on('change', function(){
+        var file = $('#fileInput-edit').prop('files')[0];
+        if (file) {
+            var fileSize = file.size;
+            var maxSize = 500 * 1024;
+            if (fileSize > maxSize) {
+                alert("Ukuran file tidak boleh lebih dari 500KB!");
+                $('#fileInput-edit').val('');
+            } else {
+                console.log("File yang dipilih:", file);
+            }
+        }
+    });
     
+    $('#update-invoice').on('click', function(){
+        var Id = $('#id-edit').val()
+        var store_name = $('#store-edit').val()
+        var formData = new FormData();
+        var file = $('#fileInput-edit').prop('files')[0];
+        if(store_name == ''){
+            alert('Nama store tidak boleh kosong!')
+        } else {
+        $('#loadingOverlay').show()
+        formData.append('logo', file);
+        formData.append('store_name', store_name)
+        $.ajax({
+            url: '/api/invoices-update/'+Id,
+            method: 'post',
+            data: formData,
+            contentType : false,
+            processData : false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response){
+                $('#loadingOverlay').hide()
+                $('#closeModalEdit').trigger('click')
+                getInvoices()
+                $('.data-sukses').empty()
+                $('.data-sukses').append('<div class="alert alert-block alert-success data-sukses" style="margin-top: 10px;">'+
+                '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                '<p><i class="fa-solid fa-check"></i> '+ response.message +'</p>'+
+                '</div>')
+                $('.data-sukses').show()
+            }
+        });
+        }
+    })
+
     $('.itemInvoice').on('click', '.btn-edit-inv', function(){
         let index = $(this).attr('id');
         index = parseInt(index.split('_')[1]);
         var Id = $(this).data('id');
         $('#modalOverlayEdit').fadeIn();
-        $("#store-edit").val(Id)
+        $('#store-edit').val()
+        $('#logoEdit').empty()
+        $('#id-edit').val()
+        $('#id-edit').val(Id)
+        $.ajax({
+            url: '/api/invoices/'+Id, 
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                var images = '/img/invoices/' + response.item.invoice_pict
+                var Html = `<img src="${images}" class="img-rounded" style="width: 250px; height:200px; margin-bottom: 15px;">`
+                var imageSrc = response.item.invoice_pict ? Html : ''
+                
+                $('#store-edit').val(response.item.store_name)
+                $('#logoEdit').append(imageSrc)
+            }
+        })
     })
 
     $('.itemInvoice').on('click', '.btn-delete-inv', function(){
@@ -184,6 +251,7 @@ $(document).ready(function(){
                 $('#closeModalDelete').trigger('click')
                 $("#store-delete").val()
                 getInvoices()
+                $('.data-sukses').empty()
                 $('.data-sukses').append('<div class="alert alert-block alert-success data-sukses" style="margin-top: 10px;">'+
                     '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
                     '<p><i class="fa-solid fa-check"></i> '+ response.message +'</p>'+

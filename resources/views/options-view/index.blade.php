@@ -15,7 +15,7 @@
     <h4>Email</h4>
     <input type="email" value="{{ $data ?? '' }}" class="input-block-level email-input email" readonly placeholder="Email" name="email" id="email">
 
-    <span style="color: red;">*Untuk keperluan notifikasi via email.</span>
+    <span style="color: red;">*Untuk keperluan notifikasi dan report via email.</span>
     <br>
     <div class="btn-on-edit">
     <button class="btn btn-sm btn-primary btn-edit" type="button" style="margin-top:10px;"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
@@ -70,11 +70,15 @@
       </div>
       <div class="modal-body">
       <label class="control-label" for="store-edit">Nama Store</label>
+      <input type="hidden" id="id-edit">
       <input type="text" name="store_name" id="store-edit" placeholder="Masukan nama store">
+      <div id="logoEdit">
+        
+      </div>
       <div class="control-group">
       <label class="control-label" for="logo">Logo</label>
       <div class="controls">
-        <input type="file" id="fileInput-edit" accept="image/png, image/jpg, image/jpeg" name="logo">
+        <input type="file" id="fileInput-edit" accept="image/png, image/jpg, image/jpeg" name="logo-edit">
     </div>
       </div>
       </div>

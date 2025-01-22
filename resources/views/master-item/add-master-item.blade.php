@@ -40,7 +40,7 @@
         <input type="text" class="input-block-level" placeholder="Seri" name="seri" id="seri">
 
         <label class="control-label" for="inputEmail">Stok <span style="color: red;">*</span></label>
-        <input type="number" class="input-block-level" name="stok">
+        <input type="number" min="0" class="input-block-level" name="stok">
 
         <label class="control-label" for="inputEmail">Spesifikasi <span style="color: red;">*</span></label>
         <textarea class="input-block-level" rows="3" name="spesifikasi"></textarea>

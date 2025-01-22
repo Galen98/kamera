@@ -10,9 +10,21 @@
 </ul>
 <ul class="nav nav-tabs">
     <li class="active">
-      <a href="#">Report Penjualan</a>
+      <a href="#" data-field="nav-report" id="nav-report_1">Report Penjualan</a>
     </li>
-    <li><a href="#">Report Barang</a></li>
+    <li><a href="#" data-field="nav-report" id="nav-report_2">Report Barang</a></li>
   </ul>
 </div>
+
+<div class="nav-penjualan">
+<h2>Report Penjualan</h2>
+</div>
+
+<div class="nav-barang" style="display: none;">
+  <h2>Report Barang</h2>
+</div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/report.js') }}"></script>
 @endsection

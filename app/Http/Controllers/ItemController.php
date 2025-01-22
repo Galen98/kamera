@@ -103,6 +103,7 @@ class ItemController extends Controller
         $item = $this->itemRepository->getById($id);
         if($item) {
         $data['title'] = $item->nama_item;
+        $data['item'] = $item;
         return view('master-item/view-master-item', $data);
         } else {
             abort(404);

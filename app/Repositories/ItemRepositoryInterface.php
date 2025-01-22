@@ -7,4 +7,5 @@ interface ItemRepositoryInterface
     public function createItem(array $data);
     public function getByCat($data);
     public function getById($data);
+    public function getAllActiveItem();
 }

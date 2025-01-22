@@ -155,8 +155,27 @@ class UserController extends Controller
         }
     }
 
-    public function update_invoices(Request $request) {
+    public function update_invoices(Request $request, $id) {
+        $invoice = Invoices::find($id);
+        $storeName = $request->store_name;
+        if ($request->hasFile('logo')) {
+            if ($invoice->invoice_pict && file_exists(public_path('img/invoices/' . $invoice->invoice_pict))) { 
+            unlink(public_path('img/invoices/' . $invoice->invoice_pict));
+            }
+            $image = $request->file('logo');
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('img/invoices', $name);
+            $invoice->update([
+                'store_name' => $request->store_name,
+                'invoice_pict' => $name
+            ]);
 
+        } else {
+            $invoice->update([
+                'store_name' => $storeName
+            ]);
+        }
+        return response()->json(['message' => 'saved successfully'], 201);
     }
 
     public function destroy_invoices($id) {

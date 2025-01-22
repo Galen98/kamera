@@ -107,7 +107,7 @@ function getCode(){
     updateKode()
   });
   function updateKode() {
-    $('#kode').val(lastshortName + '/' + resultMerk + '/' + resultNama + '/' + resultSeri  + lastNumber);
+    $('#kode').val(lastshortName + '/' + resultMerk + '/' + resultNama + '/' + resultSeri  +  '/' + lastNumber);
   }
 }
 
@@ -136,15 +136,17 @@ function getAllItems() {
           itemMaster.append('<h4 class="text-center">No Item Found</h4>')
         } else {
         response.item.forEach(function (item) {
+        var status = item.status == 1 ? `<span class="label label-success">Aktif</span>` : `<span class="label label-important">Non-Aktif</span>` 
           itemMaster.append('<div class="span4">' +
             '<div class="card">' +
                 '<img src="https://framerusercontent.com/images/yY0ZQLYDzpEQkrUF6fFYOlBM6M.png?scale-down-to=1024" alt="Card Image 1">' +
                 '<div class="card-header text-capitalize" style="margin-top:15px;">'+item.nama_item+'</div>'+
-                '<h5>' + item.kode_item+'</h5>'+
+                '<h5>' + item.kode_item +'</h5>'+
                 '<div class="card-body">'+
+                '<p class="text-capitalize">Status: '+ status +'</p>'+
                     '<p>Sisa stok: <b>'+ item.availability.count +'</b></p>'+
-                    '<p class="text-capitalize">Merk: '+ item.merk+'</p>'+
-                    '<p class="text-capitalize">Seri: '+ item.seri+'</p>'+
+                    '<p class="text-capitalize">Merk: '+ item.merk +'</p>'+
+                    '<p class="text-capitalize">Seri: '+ item.seri +'</p>'+
                     '<h5>Harga Sewa Per Hari: '+ rupiah(item.harga_per_hari) +'</h5>'+
                     '<p><a class="btn" href="/master-item/view/'+item.id+'">View details &raquo;</a></p>'+
                 '</div>'+
@@ -187,20 +189,23 @@ $("a[data-field='filter-cat']").click(function(){
         itemMaster.append('<h4 class="text-center">No Item Found</h4>')
       } else {
         response.item.forEach(function (item) {
-          itemMaster.append('<div class="span4">' +
-            '<div class="card">' +
-                '<img src="https://framerusercontent.com/images/yY0ZQLYDzpEQkrUF6fFYOlBM6M.png?scale-down-to=1024" alt="Card Image 1">' +
-                '<div class="card-header text-capitalize" style="margin-top:15px;">'+item.nama_item+'</div>'+
-                '<div class="card-body">'+
-                    '<p>Sisa stok: <b>'+ item.availability.count +'</b></p>'+
-                    '<p class="text-capitalize">Merk: '+ item.merk+'</p>'+
-                    '<p class="text-capitalize">Seri: '+ item.seri+'</p>'+
-                    '<h5>Harga Sewa Per Hari: '+ rupiah(item.harga_per_hari) +'</h5>'+
-                    '<p><a class="btn" href="/master-item/view/'+item.id+'">View details &raquo;</a></p>'+
+            var status = item.status == 1 ? `<span class="label label-success">Aktif</span>` : `<span class="label label-important">Non-Aktif</span>` 
+              itemMaster.append('<div class="span4">' +
+                '<div class="card">' +
+                    '<img src="https://framerusercontent.com/images/yY0ZQLYDzpEQkrUF6fFYOlBM6M.png?scale-down-to=1024" alt="Card Image 1">' +
+                    '<div class="card-header text-capitalize" style="margin-top:15px;">'+item.nama_item+'</div>'+
+                    '<h5>' + item.kode_item +'</h5>'+
+                    '<div class="card-body">'+
+                    '<p class="text-capitalize">Status: '+ status +'</p>'+
+                        '<p>Sisa stok: <b>'+ item.availability.count +'</b></p>'+
+                        '<p class="text-capitalize">Merk: '+ item.merk +'</p>'+
+                        '<p class="text-capitalize">Seri: '+ item.seri +'</p>'+
+                        '<h5>Harga Sewa Per Hari: '+ rupiah(item.harga_per_hari) +'</h5>'+
+                        '<p><a class="btn" href="/master-item/view/'+item.id+'">View details &raquo;</a></p>'+
+                    '</div>'+
                 '</div>'+
-            '</div>'+
-        '</div>');
-        });
+            '</div>');
+            });
       }   
     }
     }

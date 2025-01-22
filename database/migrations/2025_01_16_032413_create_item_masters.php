@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('spesifikasi');
             $table->integer('category_id');
             $table->integer('harga_per_hari');
+            $table->boolean('status')->default(1);
         });
     }
 

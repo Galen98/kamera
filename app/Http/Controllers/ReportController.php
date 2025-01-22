@@ -10,4 +10,12 @@ class ReportController extends Controller
         $data['title'] = 'Report';
         return view('report/index', $data);
     }
+
+    public function send_notification() {
+
+    }
+
+    public function monthly_report() {
+        
+    }
 }

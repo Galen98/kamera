@@ -19,7 +19,8 @@ class Item extends Model
         'nama_item',
         'spesifikasi', 
         'category_id',
-        'harga_per_hari'
+        'harga_per_hari',
+        'status'
     ];
 
     public function availability()
@@ -36,8 +37,10 @@ class Item extends Model
             return '/0001';
         }
     
-        $lastNumber = (int) substr($lastCode->code, strlen($prefix) + 1); 
+        $parts = explode('/', $lastCode->kode_item);
+        $lastNumber = (int) end($parts);
         $newNumber = $lastNumber + 1;
+        $formattedNumber = str_pad($newNumber, 4, '0', STR_PAD_LEFT);
 
         return str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }

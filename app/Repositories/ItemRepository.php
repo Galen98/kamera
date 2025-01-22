@@ -32,4 +32,8 @@ class ItemRepository implements ItemRepositoryInterface
     public function getById($data){
         return Item::find($data);
     }
+
+    public function getAllActiveItem(){
+        return Item::where('status', 1)->with('availability')->get();
+    }
 }
