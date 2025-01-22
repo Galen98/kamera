@@ -13,7 +13,7 @@
       <a href="#" data-field="nav-report" id="nav-report_1">Report Penjualan</a>
     </li>
     <li><a href="#" data-field="nav-report" id="nav-report_2">Report Barang</a></li>
-  </ul>
+</ul>
 </div>
 
 <div class="nav-penjualan">

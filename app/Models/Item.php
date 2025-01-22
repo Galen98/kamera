@@ -44,5 +44,10 @@ class Item extends Model
 
         return str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
+
+    public function transactionDetails()
+    {
+        return $this->hasMany(TransactionDetail::class, 'item_masters_id');
+    }
     
 }

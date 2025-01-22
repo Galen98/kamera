@@ -136,4 +136,11 @@ class ItemController extends Controller
             'item' => $item
         ]);
     }
+
+    public function get_item_transaction() {
+        $item = $this->itemRepository->getAllActiveItem();
+        return response()->json([
+            'item' => $item
+        ], 200);
+    }
 }

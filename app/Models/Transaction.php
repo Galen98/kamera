@@ -12,6 +12,24 @@ class Transaction extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'no_invoice',
+        'no_invoice', 
+        'customer_name',
+        'no_wa',
+        'total_amount',
+        'dibayar',
+        'hari_sewa',
+        'tgl_sewa',
+        'tgl_kembali',
+        'status',
+        'penalty',
+        'payment_status',
+        'overdue',
+        'notes',
+        'invoice_status'	
     ];
+
+    public function details()
+    {
+        return $this->hasMany(TransactionDetail::class, 'transaction_id');
+    }
 }
