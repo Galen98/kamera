@@ -5,13 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class TransactionDetail extends Model
 {
     use HasFactory;
-    protected $table = 'transaction';
+    protected $table = 'transaction_detail';
     protected $primaryKey = 'id';
-
-    protected $fillable = [
-        'no_invoice',
-    ];
 }

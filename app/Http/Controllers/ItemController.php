@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Availability;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ItemRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
@@ -24,13 +25,13 @@ class ItemController extends Controller
         return view('master-item/index', $data);
     }
 
-    public function add(){
+    public function add() { 
         $data['title'] = 'Add Master Item';
         return view('master-item/add-master-item', $data);
     }
 
     //category
-    public function getCategory(){
+    public function getCategory() {
         $category = $this->categoryRepository->getAllCategory();
         return response()->json([
             'category' => $category
@@ -91,12 +92,17 @@ class ItemController extends Controller
             ->with('success', 'Item created successfully.');
     }
 
-    public function updateItem() {
-
-    }
-
-    public function destroyItem() {
-
+    public function updateItem(Request $request, $id) {
+        $item = Item::find($id);
+        $item->update([
+            'stok' => $request->stok,
+            'merk' => $request->merk,
+            'seri' => $request->seri, 
+            'nama_item' => $request->nama_item,
+            'spesifikasi' => $request->spek,
+            'harga_per_hari' => $request->harga
+        ]);
+        return response()->json(['message' => 'Item update successfully.'], 201);
     }
 
     public function getItemById($id) {
@@ -110,8 +116,24 @@ class ItemController extends Controller
         }
     }
 
-    //api check urutan item
-    public function countItem($cat){
+    public function update_status_item($id) {
+        $item = Item::find($id);
+        $status = $item->status;
+        if($status == false){
+            $status = true;
+        } else {
+            $status = false;
+        }
+        $item->update([
+            'status' => $status
+        ]);
+        return response()->json(['message' => 'Item status changed successfully'], 201);
+    }
 
+    public function get_last_available($id) {
+        $item = Availability::find($id);
+        return response()->json([
+            'item' => $item
+        ]);
     }
 }

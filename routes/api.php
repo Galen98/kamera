@@ -24,9 +24,12 @@ Route::get('/categories', [ItemController::class, 'getCategory']);
 Route::get('/get-code/{prefix}', [ItemController::class, 'get_code']);
 Route::post('/categories', [ItemController::class, 'storeCategory']);
 
-//item
+//item 
 Route::get('/all-master-items', [ItemController::class, 'getMasterItem']);
 Route::get('/all-master-items/categories={id_cat}', [ItemController::class, 'getItemByCategory']);
+Route::post('/item-status-change/{id}', [ItemController::class, 'update_status_item']);
+Route::get('/count-stock/{id}', [ItemController::class, 'get_last_available']);
+Route::post('/update-item/{id}', [ItemController::class, 'updateItem']);
 
 //setting
 Route::post('/save-email', [UserController::class, 'setting_save_email']);

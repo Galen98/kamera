@@ -211,4 +211,64 @@ $("a[data-field='filter-cat']").click(function(){
     }
   })
 })
+
+  //change status
+  $('.btn-status-change').on('click', function(){
+    let id = $(this).data('id')
+    $.ajax({
+      url: '/api/item-status-change/'+id,
+      type: 'POST',
+      dataType: 'json',
+      success: function (response) {
+        location.reload();
+      }
+    })
+  })
+
+  //edit item
+  $('.view-field').on('click', '.btn-edit-item', function(){
+    let id = $(this).data('id')
+    $('.btn-status-change').attr('disabled', true)
+    $(this).hide()
+    $('.button-edits').append('<button class="btn btn-sm btn-primary btn-update-item" type="button" data-id="'+ id +'"><i class="fas fa-save"></i> Update Item</button>')
+    $('#merk-edit, #nama-edit, #seri-edit, #stok-edit, #spek-edit, #appendedPrependedInput-edit').attr('readonly', false)
+  })
+
+  $('.view-field').on('click', '.btn-update-item', function(){
+    let id = $(this).data('id')
+    var formData = new FormData();
+    var stok = $('#stok-edit').val()
+    var merk = $('#merk-edit').val()
+    var seri = $('#seri-edit').val()
+    var nama_item = $('#nama-edit').val()
+    var spek = $('#spek-edit').val()
+    var harga = $('#appendedPrependedInput-edit').val()
+
+    formData.append('stok', stok)
+    formData.append('merk', merk)
+    formData.append('nama_item', nama_item)
+    formData.append('spek', spek)
+    formData.append('harga', harga)
+    formData.append('seri', seri)
+
+    $('.btn-status-change').attr('disabled', false)
+    $('#merk-edit, #nama-edit, #seri-edit, #stok-edit, #spek-edit, #appendedPrependedInput-edit').attr('readonly', true)
+    $('#loadingOverlay').show()
+    $.ajax({
+      url: '/api/update-item/'+id,
+      method: 'post',
+      data: formData,
+      contentType : false,
+      processData : false,
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response){
+        $('#loadingOverlay').hide()
+        $('.btn-update-item').remove()
+        $('.btn-edit-item').show()
+      }
+    })
+  })
+
   });
