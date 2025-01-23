@@ -239,9 +239,6 @@ $("a[data-field='filter-cat']").click(function(){
     stok_awal = $("#stok-edit").val()
   })
 
-  let avail = 0
-  let booked = 0
-
   $('#stok-edit').on('change', async function () {
     let stokInput = $(this).val()
     try {
@@ -253,14 +250,21 @@ $("a[data-field='filter-cat']").click(function(){
             });
         };
         const availResponse = await fetchData('/api/count-stock-avail/' + idItem);
-        avail = availResponse.item;
         const bookedResponse = await fetchData('/api/count-stock/' + idItem);
-        booked = bookedResponse.item;
+        
+        let avail = parseInt(availResponse.item); 
+        let booked = parseInt(bookedResponse.item);
+        let stok_awal = avail + booked; 
 
-        const stokCount = avail + booked        
-        if (parseInt(avail) !== stok_awal && stokInput < parseInt(avail)) {
+        if (stokInput < booked) {
             alert('Nilai stok tidak boleh kurang dari jumlah yang sudah dibooking!');
-            $(this).val(stok_awal);
+            $(this).val(stok_awal); 
+        } else {
+            let newAvail = stokInput - booked;
+            if (newAvail < 0) {
+                alert('Stok tersedia tidak boleh negatif!');
+                $(this).val(stok_awal); 
+            }
         }
 
     } catch (error) {
