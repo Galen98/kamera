@@ -226,12 +226,14 @@ $("a[data-field='filter-cat']").click(function(){
   })
 
   //edit item
+  let stok_awal = 0
   $('.view-field').on('click', '.btn-edit-item', function(){
     let id = $(this).data('id')
     $('.btn-status-change').attr('disabled', true)
     $(this).hide()
     $('.button-edits').append('<button class="btn btn-sm btn-primary btn-update-item" type="button" data-id="'+ id +'"><i class="fas fa-save"></i> Update Item</button>')
     $('#merk-edit, #nama-edit, #seri-edit, #stok-edit, #spek-edit, #appendedPrependedInput-edit').attr('readonly', false)
+    stok_awal = $("#stok-edit").val()
   })
 
   $('.view-field').on('click', '.btn-update-item', function(){
@@ -271,4 +273,7 @@ $("a[data-field='filter-cat']").click(function(){
     })
   })
 
+  $('#stok-edit').on('change', function(){
+    alert(stok_awal)
+  })
   });

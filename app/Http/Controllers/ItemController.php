@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Availability;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ItemRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
@@ -131,6 +133,15 @@ class ItemController extends Controller
     }
 
     public function get_last_available($id) {
+        $availableStock = TransactionDetail::where('item_masters_id', $id)
+        ->where('status', 1)
+        ->sum('qty');
+        return response()->json([
+            'item' => $availableStock
+        ]);
+    }
+
+    public function get_stock_available($id) {
         $item = Availability::find($id);
         return response()->json([
             'item' => $item

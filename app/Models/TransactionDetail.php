@@ -16,7 +16,8 @@ class TransactionDetail extends Model
         'item_masters_id', 
         'qty',	
         'item_price',	
-        'subtotal'
+        'subtotal',
+        'status',
     ];
 
     public function transaction()

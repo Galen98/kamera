@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->integer('item_price');
             $table->integer('subtotal');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

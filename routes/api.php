@@ -29,6 +29,7 @@ Route::get('/all-master-items', [ItemController::class, 'getMasterItem']);
 Route::get('/all-master-items/categories={id_cat}', [ItemController::class, 'getItemByCategory']);
 Route::post('/item-status-change/{id}', [ItemController::class, 'update_status_item']);
 Route::get('/count-stock/{id}', [ItemController::class, 'get_last_available']);
+Route::get('/count-stock-avail/{id}', [ItemController::class, 'get_stock_available']);
 Route::post('/update-item/{id}', [ItemController::class, 'updateItem']);
 Route::get('/item-transaction', [ItemController::class, 'get_item_transaction']);
 
