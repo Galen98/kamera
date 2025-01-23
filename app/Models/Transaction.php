@@ -32,4 +32,24 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionDetail::class, 'transaction_id');
     }
+
+    public static function generateCode() {
+        $year = date('Y');
+        $month = date('m');
+
+        $lastCode = self::where('no_invoice', 'LIKE', "$year/$month/%")
+                        ->orderBy('no_invoice', 'desc')
+                        ->first();
+        if (!$lastCode) {
+            $newNumber = 1;
+        } else {
+            $parts = explode('/', $lastCode->no_invoice);
+            $lastNumber = (int) end($parts);
+            $newNumber = $lastNumber + 1;
+        }
+        $formattedNumber = str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+
+        return "INV/$year/$month/$formattedNumber";
+    }
+    
 }

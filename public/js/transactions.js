@@ -34,7 +34,7 @@ function dataItem(search = '') {
                             <p>Merk: ${item.merk}</p>
                             <p>Seri: ${item.seri}</p>
                             <p>Harga: ${rupiah(item.harga_per_hari)}</p>
-                            <p>Tersedia: ${item.availability.count}</p>
+                            <p>Tersedia: ${item.availability.count} item</p>
                             <p>${buttonCart}</p>
                         </div>
                     </div>

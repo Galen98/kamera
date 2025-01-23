@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Availability;
 use App\Models\Transaction;
+use App\Models\ItemAuditrail;
 use App\Models\TransactionDetail;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ItemRepositoryInterface;
@@ -96,6 +97,36 @@ class ItemController extends Controller
 
     public function updateItem(Request $request, $id) {
         $item = Item::find($id);
+        $available = Availability::find($id);
+        $stokFirst = $item->stok;
+        $stokInput = $request->stok;
+        $stok = 0;
+        $stokAdd = 0;
+        $status = 0;
+
+        if($stokInput < $stokFirst) {
+            $stoking = $this->itemRepository->stockAvailable($id);
+            $stokAdd = $stokFirst - $stokInput;
+            $stok = $stoking - $stokAdd;
+            $status = 1;
+        } else if($stokInput > $stokFirst) {
+            $stoking = $this->itemRepository->stockAvailable($id);
+            $stokAdd = $stokInput - $stokFirst;
+            $stok = $stoking + $stokAdd;
+            $status = 2;
+        } else {
+            $stok = $this->itemRepository->stockAvailable($id);
+        }
+
+        if($stokInput < $stokFirst || $stokInput > $stokFirst) {
+        ItemAuditrail::create([
+            'item_masters_id' => $item->id,
+            'status' => 2,
+            'qty' => $stokAdd,
+            'status' => $status,
+            'date_change' => date('Y-m-d')
+        ]);
+    }
         $item->update([
             'stok' => $request->stok,
             'merk' => $request->merk,
@@ -104,6 +135,10 @@ class ItemController extends Controller
             'spesifikasi' => $request->spek,
             'harga_per_hari' => $request->harga
         ]);
+        $available->update([
+            'count' => $stok
+        ]);
+
         return response()->json(['message' => 'Item update successfully.'], 201);
     }
 
@@ -133,16 +168,14 @@ class ItemController extends Controller
     }
 
     public function get_last_available($id) {
-        $availableStock = TransactionDetail::where('item_masters_id', $id)
-        ->where('status', 1)
-        ->sum('qty');
+        $availableStock = $this->itemRepository->lastAvailable($id);
         return response()->json([
             'item' => $availableStock
         ]);
     }
 
     public function get_stock_available($id) {
-        $item = Availability::find($id);
+        $item = $this->itemRepository->stockAvailable($id);
         return response()->json([
             'item' => $item
         ]);

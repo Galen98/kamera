@@ -10,7 +10,9 @@
     <li class="active">Add Transaction</li>
 </ul>
 <h3>Add New Transaction</h3>
-<ul class="nav nav-tabs">
+<label class="control-label" for="inputEmail">Nomor Invoice<span style="color: red;">*</span></label>
+<input type="text" readonly name="no_invoice" id="no_invoice" value="{{$no_invoice}}">
+<ul class="nav nav-tabs" style="margin-top:15px;">
     <li class="active">
       <a href="#" data-field="nav-report" id="nav-report_1">Item List</a>
     </li>
@@ -31,7 +33,6 @@
                     
                 </div>
             </div>
-
            
             <div class="span4 mt-1">
                 <div class="well">
@@ -64,7 +65,7 @@
     </div>
 </div>
 
-<div id="detail-info">
+<div id="detail-info" style="display: none;">
 
 </div>
 <hr>

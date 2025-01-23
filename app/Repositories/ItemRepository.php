@@ -2,7 +2,9 @@
 namespace App\Repositories;
 
 use App\Models\Item;
+use App\Models\ItemAuditrail;
 use App\Models\Availability;
+use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 
 class ItemRepository implements ItemRepositoryInterface
@@ -18,6 +20,12 @@ class ItemRepository implements ItemRepositoryInterface
             Availability::create([
                 'item_masters_id' => $item->id,
                 'count' => $data['stok'],
+            ]);
+            ItemAuditrail::create([
+                'item_masters_id' => $item->id,
+                'qty' => $data['stok'],
+                'status' => 2,
+                'date_change' => date('Y-m-d')
             ]);
             return $item;
         });
@@ -35,5 +43,22 @@ class ItemRepository implements ItemRepositoryInterface
 
     public function getAllActiveItem(){
         return Item::where('status', 1)->with('availability')->get();
+    }
+
+    public function lastAvailable($data){
+        return TransactionDetail::where('item_masters_id', $data)
+        ->where('status', 0)
+        ->sum('qty');
+    }
+
+    public function bookedStock($data){
+        return TransactionDetail::where('item_masters_id', $data)
+        ->where('status', 1)
+        ->sum('qty');
+    }
+
+    public function stockAvailable($data){
+        $count = Availability::find($data);
+        return $count->count;
     }
 }

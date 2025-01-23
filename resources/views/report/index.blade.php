@@ -22,6 +22,34 @@
 
 <div class="nav-barang" style="display: none;">
   <h2>Report Barang</h2>
+  
+  <table class="table table-striped table-bordered" style="margin-top:20px;">
+    <thead>
+      <tr style="background-color:#151b23;color:white;">
+        <th>Kode Item</th>
+        <th>Nama Item</th>
+        <th>Merk</th>
+        <th>Stok on hand</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @forelse ($item_report as $item)
+      <tr>
+      <td>{{$item->kode_item}}</td>
+        <td class="text-capitalize">{{$item->nama_item}}</td>
+        <td class="text-capitalize">{{$item->merk}}</td>
+        <td style="font-weight:bold;">{{$item->availability->count}} item</td>
+        <td><a href="{{ route('itemview.report', ['id' => $item->id]) }}" class="btn btn-sm">Details &raquo;</a></td>
+      </tr>
+      @empty
+        <tr>
+        <td colspan="5" class="text-center">No items found</td>
+        </tr>
+      @endforelse
+    </tbody>
+  </table>
+  {{ $item_report->links() }}
 </div>
 @endsection
 

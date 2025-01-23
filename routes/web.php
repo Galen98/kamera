@@ -43,4 +43,5 @@ Route::middleware('auth')->group(function () {
     Route::get('setting', [UserController::class, 'setting_view'])->name('index.setting');
     //report
     Route::get('report', [ReportController::class, 'index'])->name('index.report');
+    Route::get('report/item-report/{id}', [ReportController::class, 'view_report_item'])->name('itemview.report');
 });

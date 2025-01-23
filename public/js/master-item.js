@@ -212,9 +212,11 @@ $("a[data-field='filter-cat']").click(function(){
   })
 })
 
+  let idItem = ''
   //change status
   $('.btn-status-change').on('click', function(){
     let id = $(this).data('id')
+    idItem = id
     $.ajax({
       url: '/api/item-status-change/'+id,
       type: 'POST',
@@ -229,12 +231,42 @@ $("a[data-field='filter-cat']").click(function(){
   let stok_awal = 0
   $('.view-field').on('click', '.btn-edit-item', function(){
     let id = $(this).data('id')
+    idItem = id
     $('.btn-status-change').attr('disabled', true)
     $(this).hide()
     $('.button-edits').append('<button class="btn btn-sm btn-primary btn-update-item" type="button" data-id="'+ id +'"><i class="fas fa-save"></i> Update Item</button>')
     $('#merk-edit, #nama-edit, #seri-edit, #stok-edit, #spek-edit, #appendedPrependedInput-edit').attr('readonly', false)
     stok_awal = $("#stok-edit").val()
   })
+
+  let avail = 0
+  let booked = 0
+
+  $('#stok-edit').on('change', async function () {
+    let stokInput = $(this).val()
+    try {
+        const fetchData = (url) => {
+            return $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json'
+            });
+        };
+        const availResponse = await fetchData('/api/count-stock-avail/' + idItem);
+        avail = availResponse.item;
+        const bookedResponse = await fetchData('/api/count-stock/' + idItem);
+        booked = bookedResponse.item;
+
+        const stokCount = avail + booked        
+        if (parseInt(avail) !== stok_awal && stokInput < parseInt(avail)) {
+            alert('Nilai stok tidak boleh kurang dari jumlah yang sudah dibooking!');
+            $(this).val(stok_awal);
+        }
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+  });
 
   $('.view-field').on('click', '.btn-update-item', function(){
     let id = $(this).data('id')
@@ -273,7 +305,4 @@ $("a[data-field='filter-cat']").click(function(){
     })
   })
 
-  $('#stok-edit').on('change', function(){
-    alert(stok_awal)
-  })
   });

@@ -9,7 +9,7 @@
 <h2 class="text-black">Transaction</h2>
     <a href="{{ route('add.transaction') }}" class="btn btn-md"><i class="fa-solid fa-plus"></i> add new transaction</a>
 
-    <h6>Filter No.Order:</h6>
+<h6>Filter No.Order:</h6>
 <form class="form-search" style="margin-top: 15px;">
   <div class="input-append">
     <input type="text" class="input-medium search-query" placeholder="Cari Nomor Order">
@@ -18,7 +18,7 @@
     </button>
   </div>
 </form>
-    <h6>Filter Range Tanggal:</h6>
+  <h6>Filter Range Tanggal:</h6>
 <form class="form-search" style="margin-top: 15px;">
   <div class="input-append">
     <input type="date" style="margin-right: 10px;">
@@ -32,6 +32,7 @@
 <table class="table table-striped table-bordered">
     <thead>
       <tr style="background-color:#151b23;color:white;">
+        <th style="width: 50px;">No.</th>
         <th>No.Order</th>
         <th>Nama</th>
         <th>Tanggal Sewa</th>
@@ -43,6 +44,7 @@
     </thead>
     <tbody>
       <tr>
+        <td>1.</td>
       <td>John</td>
         <td>John</td>
         <td>Doe</td>

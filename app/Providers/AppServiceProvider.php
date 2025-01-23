@@ -7,6 +7,7 @@ use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ItemRepositoryInterface;
 use App\Repositories\ItemRepository;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Paginator::defaultView('vendor.pagination.bootstrap-2');
     }
 }
