@@ -14,10 +14,10 @@
 <input type="text" readonly name="no_invoice" id="no_invoice" value="{{$no_invoice}}">
 <ul class="nav nav-tabs" style="margin-top:15px;">
     <li class="active">
-      <a href="#" data-field="nav-report" id="nav-report_1">Item List</a>
+      <a href="#" data-field="nav-transaction" id="nav-transaction_1">Item List</a>
     </li>
     <li>
-      <a href="#" data-field="nav-report" id="nav-report_2">Informasi Detail Sewa</a>
+      <a href="#" data-field="nav-transaction" id="nav-transaction_2">Informasi Detail Sewa</a>
     </li>
 </ul>
 
@@ -36,27 +36,11 @@
            
             <div class="span4 mt-1">
                 <div class="well">
-                    <ul class="unstyled">
-                        <li class="clearfix">
-                            <span>Item 1 ($20)</span>
-                            <input type="number" class="input-mini pull-right" value="2" style="margin-left: 5px; width: 40px;">
-                            <button class="btn btn-danger btn-sm pull-right" style="margin-left: 5px;">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            <span class="pull-right">$20</span>
-                        </li>
-                        <hr>
-                        <li class="clearfix">
-                            <span>Item 2 ($10)</span>
-                            <input type="number" class="input-mini pull-right" value="1" style="margin-left: 5px; width: 40px;">
-                            <button class="btn btn-danger btn-sm pull-right" style="margin-left: 5px;">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            <span class="pull-right">$10</span>
-                        </li>
+                    <ul class="unstyled item-in-cart">
+                        
                     </ul>
                     <hr>
-                    <h4>Total: $30</h4>
+                    <h4>Total: <span class="grand-total"></span></h4>
                     {{-- <button class="btn btn-success btn-block">Checkout</button> --}}
                 </div>
             </div>
@@ -66,10 +50,42 @@
 </div>
 
 <div id="detail-info" style="display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <h3>Detail Informasi</h3>
+                <div class="input-append">
+                    <label class="control-label" for="inputEmail">Nama Customer<span style="color: red;">*</span></label>
+                    <input type="text" name="customer_name" id="customer_name" required>
+                    <label class="control-label" style="margin-top: 10px;" for="inputEmail">No WhatsApps<span style="color: red;">*</span></label>
+                    <input type="text" name="no_wa" id="no_wa" required>
+                    <label class="control-label" style="margin-top: 10px;" for="inputEmail">Notes</label>
+                    <textarea name="" id="" cols="10" rows="10"></textarea>
+                </div>
+            </div>
 
+            <div class="span4 mt-1">
+                <div class="well">
+                    <ul class="unstyled">
+                    <label class="control-label" for="inputEmail">Dibayarkan<span style="color: red;">*</span></label>
+                    <input type="text" name="dibayar" id="dibayar">
+                    <label class="control-label" for="inputEmail">Tanggal Sewa<span style="color: red;">*</span></label>
+                    <input type="date" name="tgl_sewa" id="tgl_sewa">
+                    <label class="control-label" for="inputEmail">Hari Sewa<span style="color: red;">*</span></label>
+                    <input type="number" min="1" name="hari_sewa" id="hari_sewa">
+                    <label class="control-label" for="inputEmail">Tanggal Kembali<span style="color: red;">*</span></label>
+                    <input type="date" name="tgl_kembali" id="tgl_kembali" disabled>
+                    <input type="hidden" name="total_amount" id="total_amount">
+                    </ul>
+                    <hr>
+                    <h4>Total: <span class="grand-total"></span></h4>
+                    <button class="btn btn-success btn-block">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <hr>
-
 </div>
 @endsection
 
