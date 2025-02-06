@@ -8,7 +8,7 @@ $(document).ready(function(){
         }).format(number);
     }
     
-    let allItems = []; 
+let allItems = []; 
 
 function dataItem(search = '') {
     const itemData = $('.itemData');
@@ -23,7 +23,7 @@ function dataItem(search = '') {
     } else {
         filteredItems.forEach(function (item) {
             const buttonCart = item.availability.count > 0
-                ? `<a href="#" class="btn btn-primary" data-id="${item.id}"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</a>`
+                ? `<a href="#" class="btn btn-primary btn-cart" data-id="${item.id}"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</a>`
                 : 'Out of stock';
             const Items = `
                 <div class="span3" style="margin-top:10px;">
@@ -35,7 +35,7 @@ function dataItem(search = '') {
                             <p>Seri: ${item.seri}</p>
                             <p>Harga: ${rupiah(item.harga_per_hari)}</p>
                             <p>Tersedia: ${item.availability.count} item</p>
-                            <p>${buttonCart}</p>
+                            ${buttonCart}
                         </div>
                     </div>
                 </div>`;
@@ -64,5 +64,31 @@ $('.item-search').on('input', function () {
 });
 
 fetchData();
+
+
+//add to cart
+$(document).on('click', '.btn-cart', function (e) {
+    e.preventDefault();
+    const itemId = $(this).data('id');
+    const selectedItem = allItems.find(item => item.id === itemId);
+
+    if (selectedItem) {
+        const itemData = {
+            nama_item: selectedItem.nama_item,
+            harga_per_hari: selectedItem.harga_per_hari,
+            id: selectedItem.id
+        };
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        if (!cartItems.some(item => item.id === itemData.id)) {
+            cartItems.push(itemData);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            alert(`${selectedItem.nama_item} telah ditambahkan ke keranjang`);
+        } else {
+            alert(`${selectedItem.nama_item} sudah ada di keranjang`);
+        }
+    }
+});
+
 
 })
