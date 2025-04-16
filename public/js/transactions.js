@@ -178,11 +178,26 @@ $(document).on('click', '.btn-cart', function (e) {
 
 cart();
 
-function grandTotal() {
+//update dibayarkan
+$("#dibayar").on('input', function(){
+    let vals = $(this).val()
+    grandTotal(vals)
+})
+
+function grandTotal(val) {
+    val = parseInt(val) || 0;
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     let total = cartItems.reduce((sum, item) => sum + (item.harga_per_hari * item.jumlah), 0);
     $('.grand-total').text(rupiah(total));
     $('#total_amount').val(total);
+    //piutang dan kembalian
+    let piutang = Math.max(total - val, 0);
+    let kembalian = Math.max(val - total, 0);
+
+    $('.total-piutang').text(rupiah(piutang));
+    $('#piutang').val(piutang)
+    $('.total-kembalian').text(rupiah(kembalian));
+    $('#kembalian').val(kembalian)
 }
 grandTotal()
 

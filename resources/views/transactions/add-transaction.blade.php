@@ -75,6 +75,13 @@
                     <input type="number" min="1" name="hari_sewa" id="hari_sewa">
                     <label class="control-label" for="inputEmail">Tanggal Kembali<span style="color: red;">*</span></label>
                     <input type="date" name="tgl_kembali" id="tgl_kembali" disabled>
+                    <hr>
+                    <label class="control-label" for="inputEmail">Piutang</label>
+                    <input type="hidden" name="piutang" id="piutang" readonly>
+                    <span class="total-piutang" style="color: red;"></span>
+                    <label class="control-label" for="inputEmail">Kembalian</label>
+                    <input type="hidden" name="kembalian" id="kembalian" readonly>
+                    <span class="total-kembalian"></span>
                     <input type="hidden" name="total_amount" id="total_amount">
                     </ul>
                     <hr>
